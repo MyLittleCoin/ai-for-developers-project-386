@@ -1,0 +1,23 @@
+{
+  "name": "calendar-booking-service",
+  "version": "1.0.0",
+  "description": "TypeSpec API contract for the calendar booking service",
+  "private": true,
+  "scripts": {
+    "gen": "tsp compile ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MyLittleCoin/ai-for-developers-project-386.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MyLittleCoin/ai-for-developers-project-386/issues"
+  },
+  "homepage": "https://github.com/MyLittleCoin/ai-for-developers-project-386#readme",
+  "devDependencies": {
+    "@typespec/compiler": "^1.15.0",
+    "@typespec/http": "^1.15.0",
+    "@typespec/openapi3": "^1.15.0"
+  }
+}
