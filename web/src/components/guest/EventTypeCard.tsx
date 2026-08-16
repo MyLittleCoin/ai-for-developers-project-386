@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import type { EventType } from "@/lib/schema";
+import type { EventType } from "@/lib/api";
 
 export default function EventTypeCard({ eventType }: { eventType: EventType }) {
   return (

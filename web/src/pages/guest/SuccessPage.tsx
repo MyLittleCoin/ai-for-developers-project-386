@@ -1,7 +1,7 @@
 import { Link, Navigate, useLocation, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { formatDateTime } from "@/lib/dates";
-import type { Booking } from "@/lib/schema";
+import type { Booking } from "@/lib/api";
 
 export default function SuccessPage() {
   const location = useLocation();

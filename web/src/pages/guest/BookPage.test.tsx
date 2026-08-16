@@ -19,7 +19,7 @@ vi.mock("@/lib/api", () => ({
 }));
 
 import { listSlots, createBooking, listEventTypes } from "@/lib/api";
-import type { Slot } from "@/lib/schema";
+import type { Slot } from "@/lib/api";
 
 const slotsMock = vi.mocked(listSlots);
 const bookMock = vi.mocked(createBooking);

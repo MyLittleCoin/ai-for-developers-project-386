@@ -9,7 +9,7 @@ vi.mock("@/lib/api", () => ({
 }));
 
 import { listEventTypes } from "@/lib/api";
-import type { EventType } from "@/lib/schema";
+import type { EventType } from "@/lib/api";
 
 const listMock = vi.mocked(listEventTypes);
 
