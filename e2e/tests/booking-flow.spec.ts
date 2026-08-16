@@ -18,7 +18,7 @@ test.describe("Полный путь бронирования", () => {
     await page.goto("/");
     const konsultCard = page
       .locator('[data-slot="card"]')
-      .filter({ hasText: "Консультация" });
+      .filter({ has: page.getByText("Консультация", { exact: true }) });
     await konsultCard.getByRole("link", { name: "Выбрать время" }).click();
     await expect(
       page.getByRole("heading", { name: "Консультация" }),

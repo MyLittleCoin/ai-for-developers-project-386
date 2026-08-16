@@ -39,7 +39,7 @@ All frontend scripts live in **`web/`**, run from root as `npm --prefix web run 
 
 All e2e scripts live in **`e2e/`**, run from root as `npm --prefix e2e run <script>` (or `cd e2e`):
 - `test` — Playwright e2e (spins up backend + Vite itself, deterministic in UTC)
-- `npx playwright install chromium` — install the e2e browser (first run only)
+- `npm --prefix e2e run install:browsers` — install the e2e browser (first run only)
 - CI: `.github/workflows/ci.yml` (backend, web, e2e); release: `.github/workflows/release-please.yml`
 
 ## Dev workflow quirks

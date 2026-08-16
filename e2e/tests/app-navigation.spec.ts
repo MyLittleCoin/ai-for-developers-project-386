@@ -48,6 +48,10 @@ test.describe("Навигация и краевые случаи", () => {
       .getByRole("button", { name: tomorrow })
       .click();
 
+    await expect(
+      page.getByText(new RegExp(`^${tomorrow} — выберите время`)),
+    ).toBeVisible();
+
     const plan = slotTime(2);
     await expect(page.getByRole("button", { name: plan.label })).toBeVisible();
   });

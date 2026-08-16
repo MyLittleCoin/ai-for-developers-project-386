@@ -8,6 +8,28 @@ export interface SlotPlan {
   label: string;
 }
 
+// slotTime(gap) reservation — keep gaps unique across ALL spec files so
+// bookings never overlap in the shared in-memory backend store (workers:1).
+// booking-flow:         1 (booked), 5 (Алиса), 6 (Боб), 9 (Марат), 10 (view)
+// slot-conflict:        3 (Соперник, booked via API)
+// guest-validation:     7, 8 (view only, never booked)
+// app-navigation:       2 (day 2 view only)
+// FUTURE TESTS: pick the next free gap (11+) or add a new row here.
+//
+// Gaps 1–10 are all reserved (gap 4 is left unused to keep the rows stable),
+// so nextGap() hands out the first free gap (11) and reserves it.
+const reservedGaps = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+// Returns the next gap not reserved above (11+) and reserves it.
+export function nextGap(): number {
+  let gap = 1;
+  while (reservedGaps.has(gap)) {
+    gap += 1;
+  }
+  reservedGaps.add(gap);
+  return gap;
+}
+
 function utcLabel(iso: string): string {
   return new Date(iso).toLocaleTimeString("ru-RU", {
     hour: "2-digit",
