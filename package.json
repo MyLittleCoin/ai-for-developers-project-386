@@ -9,7 +9,8 @@
     "dev:mock": "prism mock dist/openapi.yaml -p 4010",
     "dev:backend": "npm --prefix server run dev",
     "dev:front": "npm --prefix web run dev",
-    "dev": "concurrently -k -n backend,frontend -c blue,magenta \"npm:dev:backend\" \"npm:dev:front\""
+    "dev": "concurrently -k -n backend,frontend -c blue,magenta \"npm:dev:backend\" \"npm:dev:front\"",
+    "test:e2e": "npm --prefix e2e run test"
   },
   "repository": {
     "type": "git",

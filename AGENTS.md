@@ -2,6 +2,10 @@
 
 Calendar booking service (Cal.com-like). Three parts: the API **contract** at the repo root (TypeSpec → OpenAPI), the **backend** in `server/` (Fastify + TS, in-memory storage), and the **frontend** in `web/` (Vite + React + TS + shadcn/ui).
 
+## Language
+
+- The agent answers the user in Russian (**на русском языке**); code comments follow the repo convention, no hard requirement on their language.
+
 ## Backend
 
 - Implemented in `server/` (Fastify 5, TypeScript ESM, Vitest + supertest). In-memory `Store` (data resets on restart). Runs on :4011 by default (`PORT` env).
@@ -33,6 +37,11 @@ All frontend scripts live in **`web/`**, run from root as `npm --prefix web run 
 - `build` — `tsc -b` (typecheck) then `vite build`
 - `lint` — oxlint (warnings from shadcn-generated ui components are expected/non-blocking)
 
+All e2e scripts live in **`e2e/`**, run from root as `npm --prefix e2e run <script>` (or `cd e2e`):
+- `test` — Playwright e2e (spins up backend + Vite itself, deterministic in UTC)
+- `npx playwright install chromium` — install the e2e browser (first run only)
+- CI: `.github/workflows/ci.yml` (backend, web, e2e); release: `.github/workflows/release-please.yml`
+
 ## Dev workflow quirks
 
 - Requires **two processes**: backend + Vite. Vite's dev proxy forwards `/api` to the backend (:4011, override with `VITE_PROXY_TARGET`) keeping the full `/api/v1/...` path — the backend serves paths exactly as declared in `main.tsp`. Prism served spec-relative paths; if you switch the proxy back to Prism you must restore the `/api/v1` → `""` rewrite.
@@ -48,3 +57,14 @@ All frontend scripts live in **`web/`**, run from root as `npm --prefix web run 
 - The contract has **no** update/delete for event types and no booking cancellation — do not add UI relying on them.
 - `opencode.json` is gitignored (contains local MCP config incl. shadcn MCP).
 - Global git config rewrites `ssh://git@github.com/` → `https://github.com/`; the remote is HTTPS with no stored credential — pushes need a one-off token in the push URL (never persist it into `.git/config`).
+
+## Commits and releases
+
+- Every commit follows **Conventional Commits**: `<type>(<scope>): <description>`.
+  Allowed types: `feat`, `fix`, `chore`, `docs`, `test`, `ci`, `refactor`,
+  `perf`, `build`, `revert`. Scope is optional (`feat(e2e):`, `ci:`, `docs:`).
+- Breaking changes: `!` after the type or a `BREAKING CHANGE:` line in the body.
+- **The agent must** follow the format in every commit — release-please
+  (`release-please-action`, `.github/workflows/release-please.yml`) builds the
+  changelog and version from these messages.
+- Match the repo's commit history style when writing agent commits.
