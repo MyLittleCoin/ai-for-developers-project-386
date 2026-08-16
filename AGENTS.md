@@ -69,3 +69,11 @@ All e2e scripts live in **`e2e/`**, run from root as `npm --prefix e2e run <scri
   (`release-please-action`, `.github/workflows/release-please.yml`) builds the
   changelog and version from these messages.
 - Match the repo's commit history style when writing agent commits.
+- Known gotcha: for a repo under a personal account, GitHub blocks Actions
+  from opening the release PR unless the **«Allow GitHub Actions to create
+  and approve pull requests»** toggle is enabled (repo Settings → Actions →
+  General → Workflow permissions). Symptom: release-please run fails at the
+  end with `GitHub Actions is not permitted to create or approve pull
+  requests` (branch + changelog commit are created, but no PR). After
+  enabling the toggle, re-run the failed workflow run. There is no REST API
+  for this setting — it's UI-only.
