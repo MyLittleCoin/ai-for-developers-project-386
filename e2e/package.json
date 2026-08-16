@@ -1,0 +1,15 @@
+{
+  "name": "e2e",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:reporter": "playwright test --reporter=list",
+    "install:browsers": "playwright install chromium",
+    "lint": "oxlint"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "oxlint": "^1.75.0"
+  }
+}
