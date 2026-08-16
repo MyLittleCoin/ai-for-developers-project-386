@@ -4,7 +4,6 @@ import { bookSlot, seedEventType, slotTime } from "../helpers";
 test.describe("Полный путь бронирования", () => {
   test("админ создаёт тип через UI → гость бронирует → бронь видна в админке", async ({
     page,
-    request,
   }) => {
     await page.goto("/admin/event-types");
     await page.getByRole("button", { name: "Создать" }).click();
@@ -17,7 +16,10 @@ test.describe("Полный путь бронирования", () => {
     await expect(page.getByRole("table")).toContainText("Консультация");
 
     await page.goto("/");
-    await page.getByRole("link", { name: "Выбрать время" }).click();
+    const konsultCard = page
+      .locator('[data-slot="card"]')
+      .filter({ hasText: "Консультация" });
+    await konsultCard.getByRole("link", { name: "Выбрать время" }).click();
     await expect(
       page.getByRole("heading", { name: "Консультация" }),
     ).toBeVisible();
