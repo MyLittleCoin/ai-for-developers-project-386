@@ -45,6 +45,7 @@ All e2e scripts live in **`e2e/`**, run from root as `npm --prefix e2e run <scri
 ## Dev workflow quirks
 
 - Requires **two processes**: backend + Vite. Vite's dev proxy forwards `/api` to the backend (:4011, override with `VITE_PROXY_TARGET`) keeping the full `/api/v1/...` path — the backend serves paths exactly as declared in `main.tsp`. Prism served spec-relative paths; if you switch the proxy back to Prism you must restore the `/api/v1` → `""` rewrite.
+- For live e2e debugging the agent has local MCP tools (config in `opencode.json`, gitignored): **Playwright MCP** (`playwright`) — run browser scenarios, **Chrome Devtools MCP** (`chrome-devtools`) — network/console/page state. Auto e2e (`npm --prefix e2e run test`) does **not** need MCP — that's the CI/stable path; MCP is for live diagnosis during development.
 - API client base URL (`web/src/lib/client.ts`) is `import.meta.env.VITE_API_BASE_URL ?? "/api/v1"`.
 - Tests mock the whole `@/lib/api` module with `vi.mock("@/lib/api", ...)` (no MSW, no real fetch). Sonner tests additionally mock `next-themes`. `SlotFlow`/409 fixtures must generate slot times relative to today (SlotPicker defaults to `dayWindow()[0]`).
 - Type imports: `web/src/lib/schema.ts` only exports `paths`/`components` (no top-level entity types). Import types from `@/lib/api` (re-exports `EventType`, `Slot`, `Booking`, …), not from `@/lib/schema`.
