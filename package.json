@@ -4,7 +4,10 @@
   "description": "TypeSpec API contract for the calendar booking service",
   "private": true,
   "scripts": {
-    "gen": "tsp compile ."
+    "gen": "tsp compile .",
+    "gen:types": "npm run gen && openapi-typescript dist/openapi.yaml -o web/src/lib/schema.ts",
+    "dev:mock": "prism mock dist/openapi.yaml -p 4010",
+    "dev:front": "npm --prefix web run dev"
   },
   "repository": {
     "type": "git",
@@ -16,8 +19,10 @@
   },
   "homepage": "https://github.com/MyLittleCoin/ai-for-developers-project-386#readme",
   "devDependencies": {
+    "@stoplight/prism-cli": "^5.16.0",
     "@typespec/compiler": "^1.15.0",
     "@typespec/http": "^1.15.0",
-    "@typespec/openapi3": "^1.15.0"
+    "@typespec/openapi3": "^1.15.0",
+    "openapi-typescript": "^7.13.0"
   }
 }
