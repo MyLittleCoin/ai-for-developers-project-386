@@ -1,5 +1,7 @@
 node_modules/
 dist/
+server/public/
+PROGRESS.md
 opencode.json
 e2e/test-results/
 e2e/playwright-report/

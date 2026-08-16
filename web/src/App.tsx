@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "@/pages/guest/HomePage";
 import BookPage from "@/pages/guest/BookPage";
 import SuccessPage from "@/pages/guest/SuccessPage";
+import SchedulePage from "@/pages/guest/SchedulePage";
 import GuestLayout from "@/pages/guest/GuestLayout";
 import AdminLayout from "@/pages/admin/AdminLayout";
 import AdminEventTypesPage from "@/pages/admin/AdminEventTypesPage";
@@ -14,6 +15,7 @@ function App() {
     <Routes>
       <Route element={<GuestLayout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/schedule" element={<SchedulePage />} />
         <Route path="/book/:eventTypeId" element={<BookPage />} />
         <Route path="/book/:eventTypeId/success" element={<SuccessPage />} />
       </Route>

@@ -65,3 +65,9 @@ export function adminListBookings(from: string) {
     .GET("/admin/bookings", { params: { query: { from } } })
     .then(unwrap<Booking[]>);
 }
+
+export function listMeetings(from: string) {
+  return api
+    .GET("/meetings", { params: { query: { from } } })
+    .then(unwrap<Booking[]>);
+}

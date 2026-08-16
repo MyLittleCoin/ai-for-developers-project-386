@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 export default function AdminLayout() {
@@ -35,6 +35,12 @@ export default function AdminLayout() {
               Встречи
             </NavLink>
           </nav>
+          <Link
+            to="/"
+            className="ml-auto rounded-md border border-input bg-background px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted/60"
+          >
+            К гостевому виду
+          </Link>
         </div>
       </header>
       <main className="mx-auto max-w-5xl px-4 py-8">

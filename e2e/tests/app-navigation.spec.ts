@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { seedEventType, slotTime, dayButtonLabel } from "../helpers";
+import { seedEventType, slotTime, dayButtonLabel, bookSlot, nextGap } from "../helpers";
 
 test.describe("Навигация и краевые случаи", () => {
   test("несуществующий тип события — слотов нет (404 бэкенда)", async ({ page }) => {
@@ -18,6 +18,32 @@ test.describe("Навигация и краевые случаи", () => {
     await page.goto("/admin/event-types");
     await expect(
       page.getByRole("heading", { name: "Типы событий" }),
+    ).toBeVisible();
+  });
+
+  test("расписание гостя показывает встречи и есть переход в режим владельца", async ({
+    page,
+    request,
+  }) => {
+    const type = await seedEventType(request, "Расписание");
+    const plan = slotTime(nextGap());
+    await bookSlot(request, type.id, "Зритель", plan.iso);
+
+    await page.goto("/");
+    await page.getByRole("link", { name: "Расписание" }).click();
+    await expect(
+      page.getByRole("heading", { name: "Расписание" }),
+    ).toBeVisible();
+    await expect(page.getByText("Зритель")).toBeVisible();
+
+    await page.getByRole("link", { name: "Владельцу" }).click();
+    await expect(
+      page.getByRole("heading", { name: "Типы событий" }),
+    ).toBeVisible();
+
+    await page.getByRole("link", { name: "К гостевому виду" }).click();
+    await expect(
+      page.getByRole("heading", { name: "Сервис бронирования" }),
     ).toBeVisible();
   });
 

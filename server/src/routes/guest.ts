@@ -7,6 +7,16 @@ import type { BookingCreateInput } from "../types.js";
 export function registerGuestRoutes(app: FastifyInstance, store: Store): void {
   app.get("/api/v1/event-types", async () => store.listEventTypes());
 
+  app.get<{ Querystring: { from?: string } }>("/api/v1/meetings", async (req) => {
+    const fromMs = req.query.from ? Date.parse(req.query.from) : NaN;
+    const from = Number.isNaN(fromMs) ? Date.now() : fromMs;
+
+    return store
+      .listBookings()
+      .filter((b) => Date.parse(b.startAt) >= from)
+      .sort((a, b) => a.startAt.localeCompare(b.startAt));
+  });
+
   app.get<{
     Params: { eventTypeId: string };
     Querystring: { from?: string; to?: string };

@@ -181,6 +181,18 @@ namespace GuestBookings {
   ): BookingCreated | BadRequestError | NotFoundError | ConflictError;
 }
 
+@route("/meetings")
+namespace GuestMeetings {
+  @doc("Расписание предстоящих встреч, видимое гостю")
+  @get
+  op list(
+    @doc(
+      "Показать встречи, начиная с этого времени. Не задано — текущее время"
+    )
+    @query from?: utcDateTime,
+  ): Booking[];
+}
+
 /**
  * Админский API владельца: одиночный предзаданный профиль без авторизации.
  * Управление типами событий и просмотр предстоящих встреч всех типов.
