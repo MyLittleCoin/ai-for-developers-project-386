@@ -759,7 +759,69 @@ git commit -m "docs: conventional commits, russian replies, e2e commands; add ro
 
 ---
 
-### Task 8: Верификация релизного пути (не del локально неприменимо)
+### Task 8: Локальные MCP-инструменты агента (Playwright MCP, Chrome Devtools MCP)
+
+**Files:**
+- Modify: `opencode.json` (**gitignored** — локальная конфигурация, в коммиты не попадает), `AGENTS.md` (справка об использовании)
+
+**Interfaces:**
+- Produces: MCP-серверы `playwright` и `chrome-devtools` в конфиге opencode; правило в `AGENTS.md` о диагностике e2e через них. Работа MCP не требуется ни для CI, ни для e2e-прогона — это инструменты агента для интерактивной отладки.
+
+Примечание: `opencode.json` в `.gitignore` — изменения в нём не коммитятся, поэтому задача разделена на локальную часть (конфиг) и документируемую в репозитории (AGENTS.md).
+
+- [ ] **Step 1: Добавить MCP-секцию в `opencode.json`**
+
+В `"provider"` (после `models`) добавить блок `"mcp"`:
+
+```json
+"mcp": {
+  "playwright": {
+    "type": "local",
+    "command": ["npx", "-y", "@playwright/mcp@latest"],
+    "enabled": true
+  },
+  "chrome-devtools": {
+    "type": "local",
+    "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
+    "enabled": true
+  }
+}
+```
+
+> Если в данной версии opencode тип `"local"` не поддерживается — использовать синтаксис, принятый в вашей сборке (`"command"` + `"args"`), сохранив имена `playwright` и `chrome-devtools`. Файл локальный (gitignored), коммит для конфига не требуется.
+
+- [ ] **Step 2: Проверить, что MCP-серверы доступны**
+
+Run: `.gitignore` уже содержит `opencode.json`; перезапустить opencode, чтобы подхватить MCP.
+Expected: в списке инструментов/`/mcp` появились `playwright` и `chrome-devtools`; ошибок запуска нет. Если `npx` кэшируется — первый запуск может скачивать пакеты (нужна сеть).
+
+- [ ] **Step 3: Smoke-проверка Playwright MCP (опционально)**
+
+Для ручной проверки поднять окружение:
+```bash
+npm --prefix server run start &
+npm --prefix web run dev
+```
+Затем инструментом `playwright` открыть `http://localhost:5173` и убедиться, что главная страница рендерится (текст «Сервис бронирования»). Убрать фоновые процессы после проверки (`kill %1` и Ctrl-C).
+
+- [ ] **Step 4: Добавить правило про диагностику e2e в `AGENTS.md`**
+
+В секцию «Dev workflow quirks» (или рядом с e2e-командами из Task 7) добавить:
+
+```markdown
+- Для интерактивной отладки e2e у агента есть локальные MCP-инструменты (конфиг в `opencode.json`, gitignored): **Playwright MCP** (`playwright`) — запуск браузерных сценариев, **Chrome Devtools MCP** (`chrome-devtools`) — сеть/консоль/состояние страницы. Автотесты (`npm --prefix e2e run test`) MCP не требуют — это CI/стабильные e2e; MCP — для живой диагностики при разработке.
+```
+
+- [ ] **Step 5: Commit (только AGENTS.md; opencode.json не коммитится)**
+
+```bash
+git add AGENTS.md
+git commit -m "docs: agent diagnostics via playwright and chrome-devtools MCP"
+```
+
+---
+
+### Task 9: Верификация релизного пути (требует GitHub, локально недоступно)
 
 - [ ] **Step 1: После пуша в `main`**
 
