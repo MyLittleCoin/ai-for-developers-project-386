@@ -1,5 +1,9 @@
 import { addDays, startOfDay, format } from "date-fns";
 
+export function formatStripDay(d: Date) {
+  return `${d.getDate()}.${String(d.getMonth() + 1).padStart(2, "0")}`;
+}
+
 export function dayWindow(now = new Date(), days = 14) {
   const start = startOfDay(now);
   const daysList: Date[] = [];
