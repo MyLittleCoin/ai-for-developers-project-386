@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/MyLittleCoin/ai-for-developers-project-386/compare/v1.0.0...v1.1.0) (2026-08-16)
+
+
+### Features
+
+* guest schedule of meetings and owner-mode switch ([4ebce5e](https://github.com/MyLittleCoin/ai-for-developers-project-386/commit/4ebce5eaf916f8141a171230bab8c84722ea566a))
+* **web:** render /schedule as a calendar view ([5b126e5](https://github.com/MyLittleCoin/ai-for-developers-project-386/commit/5b126e56226f518e5f3c65f05e5804220b840024))
+
 ## 1.0.0 (2026-08-16)
 
 
