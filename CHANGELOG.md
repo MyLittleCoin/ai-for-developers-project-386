@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/MyLittleCoin/ai-for-developers-project-386/compare/v1.1.0...v1.1.1) (2026-08-31)
+
+
+### Bug Fixes
+
+* **e2e:** exact match for day-tab button in app-navigation test ([795838b](https://github.com/MyLittleCoin/ai-for-developers-project-386/commit/795838b3efef3e0965b4bea1e89d1f6120582d05))
+* review fixes for error status, e2e slot times, date formatting ([774d9ef](https://github.com/MyLittleCoin/ai-for-developers-project-386/commit/774d9eff03ea71d86338c3fb25238e05ba9f459a))
+
 ## [1.1.0](https://github.com/MyLittleCoin/ai-for-developers-project-386/compare/v1.0.0...v1.1.0) (2026-08-16)
 
 
