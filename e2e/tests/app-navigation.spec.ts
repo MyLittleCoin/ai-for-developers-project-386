@@ -71,7 +71,7 @@ test.describe("Навигация и краевые случаи", () => {
     const tomorrow = dayButtonLabel(1);
     await page
       .locator("div.mb-4.flex.gap-2")
-      .getByRole("button", { name: tomorrow })
+      .getByRole("button", { name: tomorrow, exact: true })
       .click();
 
     await expect(
