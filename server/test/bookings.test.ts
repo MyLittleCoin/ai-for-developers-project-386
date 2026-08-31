@@ -47,6 +47,16 @@ describe("POST /api/v1/bookings", () => {
     expect(res.body).toEqual({ code: "not_found", message: expect.any(String) });
   });
 
+  test("возвращает 400, а не 500, при невалидном JSON в теле", async () => {
+    const res = await request(app.server)
+      .post("/api/v1/bookings")
+      .set("content-type", "application/json")
+      .send('{"eventTypeId":');
+
+    expect(res.status).toBe(400);
+    expect(res.body.code).toBe("bad_request");
+  });
+
   test("возвращает 400 при пустом имени гостя", async () => {
     const et = await seedEventType(app);
 

@@ -39,14 +39,15 @@ function utcLabel(iso: string): string {
   });
 }
 
+// slotTime(gap) — builds a slot on the current day, shifted forward from
+// Date.now() (next 30-min boundary ≥ now + 1h) so booked slots are always in
+// the future regardless of when the suite runs, and the admin/grid "from=now"
+// filters don't drop them. All tests stay on the default "today" day tab.
+// Caveat: when run very late at night (≈ after 17:30 UTC) the tail gaps roll
+// past midnight; keep the suite's daytime runs on the current day as-is.
 export function slotTime(gap = 1): SlotPlan {
-  const now = new Date();
-  const dayStartUtc = Date.UTC(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate(),
-  );
-  const iso = new Date(dayStartUtc + 8 * 3600_000 + gap * STEP_MS).toISOString();
+  const start = Math.ceil((Date.now() + 3600_000) / STEP_MS) * STEP_MS;
+  const iso = new Date(start + gap * STEP_MS).toISOString();
   return { iso, label: utcLabel(iso) };
 }
 

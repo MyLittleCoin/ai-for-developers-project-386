@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatTime, formatDateTime, dayWindow } from "./dates";
+import { formatStripDay, formatTime, formatDateTime, dayWindow } from "./dates";
 
 describe("dates", () => {
   it("dayWindow returns 14 days starting from local midnight", () => {
@@ -19,5 +19,10 @@ describe("dates", () => {
     const iso = new Date(2026, 7, 16, 10, 0).toISOString();
     expect(formatTime(iso)).toBe("10:00");
     expect(formatDateTime(iso)).toBe("16.08.2026 10:00");
+  });
+
+  it("formatStripDay zero-pads day and month", () => {
+    expect(formatStripDay(new Date(2026, 7, 5))).toBe("05.08");
+    expect(formatStripDay(new Date(2026, 11, 30))).toBe("30.12");
   });
 });

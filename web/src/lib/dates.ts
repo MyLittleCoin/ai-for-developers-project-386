@@ -1,7 +1,7 @@
 import { addDays, startOfDay, format } from "date-fns";
 
 export function formatStripDay(d: Date) {
-  return `${d.getDate()}.${String(d.getMonth() + 1).padStart(2, "0")}`;
+  return format(d, "dd.MM");
 }
 
 export function dayWindow(now = new Date(), days = 14) {
